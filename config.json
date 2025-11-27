@@ -1,0 +1,28 @@
+{
+  "API_KEY": "exampleApiKey",
+  "API_PORT": 3899,
+  "API_BIND_ADDRESS": "0.0.0.0",
+  "customWhoisEndpoint": null,
+  "maxClusters": 3,
+  "origin": "ipapi.is",
+  "customLists": [],
+  "enableRateLimit": true,
+  "disallowedNets": [],
+  "freeRiders": {
+    "::1": 1,
+    "::ffff:127.0.0.1": 1,
+    "127.0.0.1": 1
+  },
+  "freeRiderKeys": {},
+  "rateLimits": {
+    "normalLookupsPerHour": 75,
+    "bulkLookupsPerHour": 7,
+    "whoisLookupsPerHour": 75
+  },
+  "onlyAllowWithApiKey": false,
+  "enableFirewall": true,
+  "firewallAfter": 500,
+  "logExpensiveRequests": false,
+  "maxBulkLookupIPs": 100,
+  "logApiErrors": false
+}

@@ -1,0 +1,16 @@
+I want you to dynamically build the test cases for the functional tests for the following API flags.
+
+Do this in addition to the existing test cases in the `functional_tests.js` file.
+
+All data files can be found in the `/Users/nikolaitschacher/projects/ip_api_data/ipapi_database/` directory.
+
+In general, I want you to only consider recent files, recent means data files that are less than 7 days old.
+
+- `is_mobile` - `mobile_data/mobileNetworks.txt`, chose an IP from one of the networks and check if it is mobile
+- `is_crawler` - `crawler_data/`, pick some random files in the two sub directories and check if they are crawler IP addresses
+- `is_tor` - `tor_data/`, pick some random files in tor1 to tor4 and check if they are Tor IP addresses
+- `is_proxy` - `proxy_data/`, pick some IP addresses from the file `proxyIpsUs.txt` and check if they are proxy IP addresses
+- `is_vpn` - `vpn_data/`, pick some IP addresses from the file `allVpnData.json` and check if they are VPN IP addresses and correct service name
+- `is_abuser` - `blocklist_data/`, pick some IP addresses from random RECENT files and check if they are abuser IP addresses
+- `is_datacenter` - `hosting_data/`, pick some IP addresses from the file `hostingRanges.tsv` and check if they are datacenter IP addresses
+- `is_bogon` - create some bogon IP addresses and check if they are bogon IP addresses

@@ -1,0 +1,37 @@
+{
+  "API_KEY": "testKey",
+  "API_PORT": 3899,
+  "API_BIND_ADDRESS": "0.0.0.0",
+  "customWhoisEndpoint": null,
+  "maxClusters": 1,
+  "origin": "ipapi.is",
+  "customLists": [
+    {
+      "path": "/Users/nikolaitschacher/projects/ip_api/test/customAbuser.txt",
+      "property": "is_abuser"
+    },
+    {
+      "path": "/Users/nikolaitschacher/projects/ip_api/test/customDatacenter.txt",
+      "property": "is_datacenter"
+    }
+  ],
+  "enableRateLimit": true,
+  "disallowedNets": [],
+  "freeRiders": {
+    "::1": 1,
+    "::ffff:127.0.0.1": 1,
+    "127.0.0.1": 1
+  },
+  "freeRiderKeys": {},
+  "rateLimits": {
+    "normalLookupsPerHour": 1000,
+    "bulkLookupsPerHour": 10,
+    "whoisLookupsPerHour": 1000
+  },
+  "onlyAllowWithApiKey": true,
+  "enableFirewall": true,
+  "firewallAfter": 500,
+  "logExpensiveRequests": false,
+  "maxBulkLookupIPs": 100,
+  "logApiErrors": true
+}

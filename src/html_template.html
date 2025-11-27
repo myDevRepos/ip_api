@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{PAGE_TITLE}} - ipapi.is</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #1a1a1a;
+        --text-color: #e5e5e5;
+        --border-color: #2d2d2d;
+        --header-bg: #0f0f0f;
+        --sidebar-bg: #1a1a1a;
+        --section-bg: #1a1a1a;
+        --table-bg: #1a1a1a;
+        --label-color: #a0a0a0;
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #1a1a1a;
+        --border-color: #e5e7eb;
+        --header-bg: #ffffff;
+        --sidebar-bg: #f8fafc;
+        --section-bg: #ffffff;
+        --table-bg: #ffffff;
+        --label-color: #6b7280;
+      }
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.75rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    #header-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header-tags-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .format-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .format-link {
+      color: var(--label-color);
+      text-decoration: underline;
+      font-size: 0.875rem;
+      font-weight: normal;
+      transition: color 0.2s;
+    }
+
+    .format-link:hover {
+      color: var(--text-color);
+    }
+
+    .header h1 {
+      color: var(--text-color);
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .header-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .header-tags .tag {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-container {
+      display: flex;
+      min-height: calc(100vh - 100px);
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: var(--sidebar-bg) !important;
+      padding: 1.5rem;
+      flex-shrink: 0;
+      position: sticky;
+      top: 100px;
+      align-self: flex-start;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .sidebar.menu {
+      background-color: var(--sidebar-bg) !important;
+    }
+
+    .menu-label {
+      color: var(--label-color);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .menu-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    .menu-item {
+      background-color: transparent !important;
+      display: block;
+      color: var(--label-color);
+      padding: 0.5rem 0.75rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .menu-item:hover {
+      background-color: var(--border-color);
+      color: var(--text-color);
+    }
+
+    .menu-item.is-active {
+      background-color: var(--border-color);
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .menu-item.is-active {
+        background-color: #2d2d2d;
+      }
+    }
+
+    .content-area {
+      flex: 1;
+      padding: 2rem;
+      background-color: var(--bg-color);
+    }
+
+    .content-section {
+      background-color: var(--section-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      scroll-margin-top: 100px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .content-section .title {
+      color: var(--text-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+
+    .table {
+      background-color: var(--table-bg);
+      color: var(--text-color);
+    }
+
+    .table td {
+      color: var(--text-color);
+      border-color: var(--border-color);
+    }
+
+    .table td:first-child {
+      color: var(--label-color);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      width: 180px;
+    }
+
+    .label-with-tooltip {
+      border-bottom: 1px dashed var(--border-color);
+      cursor: help;
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+    }
+
+    .label-with-tooltip:hover {
+      color: #2563eb;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .label-with-tooltip:hover {
+        color: #ffffff;
+      }
+
+      .tag.is-light {
+        background-color: #2d2d2d !important;
+        color: #e5e5e5 !important;
+      }
+    }
+
+    .tooltip-container {
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 12px);
+      background: #4b5563;
+      color: #f6f6f6;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 490px;
+      min-width: 280px;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+      line-height: 1.4;
+      word-wrap: break-word;
+      pointer-events: none;
+      text-transform: none;
+    }
+
+    .tooltip-container .tooltip-icon {
+      color: #60a5fa;
+    }
+
+    .label-with-tooltip:hover .tooltip-container {
+      display: block;
+    }
+
+    .label-with-tooltip:hover::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 6px);
+      border: 8px solid transparent;
+      border-top-color: #4b5563;
+      z-index: 1001;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .security-flag-value {
+      color: #dc2626 !important;
+      font-weight: 600;
+    }
+
+    .table ul {
+      margin-left: 1.5rem;
+      margin-top: 0.25rem;
+      list-style-type: disc;
+      padding: 0;
+    }
+
+    .table ul li {
+      margin-bottom: 0.15rem;
+      color: var(--text-color);
+    }
+
+    .map-wrapper {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+      position: relative;
+      background-color: var(--bg-color);
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+    }
+
+    .map-link {
+      position: absolute;
+      right: 0.75rem;
+      bottom: 0.5rem;
+      background-color: var(--section-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .map-link:hover {
+      background-color: var(--bg-color);
+      border-color: var(--border-color);
+      color: var(--text-color);
+    }
+
+    .boolean-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .boolean-value i {
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        position: relative;
+        top: 0;
+        max-height: none;
+      }
+
+      .menu-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .menu-list li {
+        margin-bottom: 0;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuItems = document.querySelectorAll('.menu-item');
+      const sections = document.querySelectorAll('.content-section');
+
+      // Smooth scroll on menu click
+      menuItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetSection = this.getAttribute('data-section');
+          const targetElement = document.getElementById(targetSection);
+
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Scroll spy to highlight current section
+      function updateActiveSection() {
+        const scrollPos = window.scrollY + 150;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            menuItems.forEach(mi => {
+              if (mi.getAttribute('data-section') === section.id) {
+                menuItems.forEach(m => m.classList.remove('is-active'));
+                mi.classList.add('is-active');
+              }
+            });
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveSection);
+      updateActiveSection(); // Initial check
+
+      // Preserve key parameter in links
+      function preserveKeyInLinks() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const key = urlParams.get('key');
+
+        if (key) {
+          // Update IP, ASN, and prefix links
+          document.querySelectorAll('a.ip-link, a.asn-link, a.prefix-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+              // Handle relative URLs with query parameters
+              const separator = href.includes('?') ? '&' : '?';
+              link.setAttribute('href', href + separator + 'key=' + encodeURIComponent(key));
+            }
+          });
+        }
+      }
+
+      preserveKeyInLinks();
+
+      // Generate format links
+      function generateFormatLinks() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q');
+        const key = urlParams.get('key');
+
+        if (!query) return;
+
+        const baseUrl = window.location.origin;
+        const keyParam = key ? `&key=${encodeURIComponent(key)}` : '';
+
+        const formats = [
+          { name: 'TOON', path: '/toon', label: 'TOON' },
+          { name: 'TEXT', path: '/text', label: 'TEXT' },
+          { name: 'CSV', path: '/csv', label: 'CSV' },
+          { name: 'JSON', path: '/', label: 'JSON' }
+        ];
+
+        const formatLinksHtml = formats.map(format => {
+          const href = `${baseUrl}${format.path}?q=${encodeURIComponent(query)}${keyParam}`;
+          return `<a href="${href}" class="format-link">${format.label}</a>`;
+        }).join('');
+
+        const formatLinksContainer = document.getElementById('format-links');
+        if (formatLinksContainer) {
+          formatLinksContainer.innerHTML = formatLinksHtml;
+        }
+      }
+
+      generateFormatLinks();
+    });
+  </script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="header-content">
+      <h1 class="title h2" id="header-title">{{HEADER_TITLE}}</h1>
+      {{HEADER_TAGS}}
+      <div id="format-links" class="format-links"></div>
+    </div>
+  </div>
+  <div class="main-container">
+    {{SIDEBAR}}
+    <div class="content-area">
+      {{CONTENT}}
+    </div>
+  </div>
+</body>
+
+</html>
